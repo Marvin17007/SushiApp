@@ -10,7 +10,7 @@ import { FooterComponent } from './component/footer/footer.component';
 import { CardSushiBoxComponent } from './component/card-sushi-box/card-sushi-box.component';
 import { ContainerCardSushiBoxesComponent } from './component/container-card-sushi-boxes/container-card-sushi-boxes.component';
 import { RgpdComponent } from './component/rgpd/rgpd.component';
-import { PanierComponent } from './component/panier/panier.component';
+import { PagePanierComponent } from './component/panier/page-panier.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { PanierComponent } from './component/panier/panier.component';
     CardSushiBoxComponent,
     ContainerCardSushiBoxesComponent,
     RgpdComponent,
-    PanierComponent
+    PagePanierComponent
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,7 @@ prix: number;
 image: string;
 aliments: Aliment[];
 saveurs: string[];
-quantiteCommande: number = 0;
+
 /**
 *
 * @param {number} id -Identifiant unique de la box

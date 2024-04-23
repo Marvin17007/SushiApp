@@ -3,6 +3,7 @@ import { ApiSushiService } from '../../service/api-sushi.service';
 import { Box } from '../../models/Box';
 import { Aliment } from '../../models/Aliment';
 import { environment } from '../../../environments/environment';
+import { ManagerPanierService } from '../../service/manager-panier.service';
 
 @Component({
   selector: 'app-container-card-sushi-boxes',
@@ -14,7 +15,7 @@ export class ContainerCardSushiBoxesComponent {
 boxes: Map<number, Box>;
 pathImage = environment.apiGetImages;
 
-constructor(private apiSushiService: ApiSushiService) {
+constructor(private apiSushiService: ApiSushiService,private panierService:ManagerPanierService) {
   this.boxes = new Map;
 }
 
@@ -44,5 +45,10 @@ getBoxes(): void{
       this.boxes.set(boxApi.id, box);
       }
   });
+  }
+
+  ajouterAuPanier(uneBox:Box,qte:number){
+  
+    this.panierService.addBox(1,uneBox)
   }
 }

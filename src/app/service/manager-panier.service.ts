@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { LignePanier } from '../models/Ligne';
+
 import { Box } from '../models/Box';
+import { Aliment } from '../models/Aliment';
+import { ApiSushiService } from './api-sushi.service';
+import { Ligne } from '../models/Ligne';
 
 
 @Injectable({
@@ -8,52 +11,46 @@ import { Box } from '../models/Box';
 })
 export class ManagerPanierService {
 
-  lignes: Array<LignePanier>
+  panier:Array<Ligne>
+  CLE_PANIER: string = "panier";    // Nom de la clé pour localstorage.
 
-  constructor() {
-    this.lignes = JSON.parse(localStorage.getItem("panier") ?? "[]")
-  }
 
-  getPanier() {
-    return this.lignes
-  }
+  constructor(private apiSushiService: ApiSushiService) {
+    this.panier=[]
 
-  add(uneBox: Box, quantite: number) {
-    let ligne = new LignePanier(quantite,uneBox)
-    let boxExistante = false;
-    for (let boxe of this.lignes){
-    if (boxe.uneBox.id == ligne.uneBox.id){
-      boxe.quantite+=quantite
-      boxExistante = true
-      
+    if (localStorage.getItem(this.CLE_PANIER) != null) {
+      this.panier = JSON.parse(localStorage.getItem(this.CLE_PANIER) || "[]");
     }
-  }
-  if (boxExistante == false){
-   this.lignes.push(ligne)
+
+    else {
+      this.panier = []
+    }
   
   }
-  localStorage.setItem("panier",JSON.stringify(this.lignes))
 
-}
 
-  remove(uneBox: Box, quantite: number){
-  for (let i = 0 ; i <  this.lignes.length; i++){
-  if (this.lignes[i].uneBox.id === uneBox.id){
-    if (this.lignes[i].quantite > quantite){
-      this.lignes[i].quantite -= quantite;
-    }else{
-      this.lignes.splice(i,1);
+
+
+  addBox(addQte: number, newBox: Box): void {   
+    let ligne=new Ligne(addQte,newBox) 
+    let estPresent=false
+  
+    for (const uneLigne of this.panier) {
+      if(uneLigne.box.id==newBox.id){
+        estPresent=true
+        uneLigne.qte+=addQte
+      //TODO si qte =0 il faut supprimer la ligne du panier
+      }
     }
-    localStorage.setItem("panier",JSON.stringify(this.lignes))
-    return
+
+    if(estPresent==false){
+      this.panier.push(ligne)  
+    }
+  
+    //console.log(this.panier);
+    //console.log(JSON.stringify(this.panier));
+    //console.log(JSON.stringify(this.panier.articles.get(1)));
+    console.log(this.panier)
+     localStorage.setItem(this.CLE_PANIER, JSON.stringify(this.panier));  
   }
-}
-localStorage.setItem("panier",JSON.stringify(this.lignes))
-}
-
-
-clearPanier() {
-  localStorage.clear();
-    this.lignes = [];
-}
 }

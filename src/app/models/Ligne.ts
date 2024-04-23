@@ -1,10 +1,11 @@
 import { Box } from "./Box"
 
-export class LignePanier {
-    public quantite: number
-    uneBox: Box
-    constructor(quantite: number, uneBox: Box) {
-        this.quantite = quantite
-        this.uneBox = uneBox
+export  class Ligne {
+    qte:number
+    box:Box
+
+    constructor(qte:number,box:Box){
+        this.qte=qte
+        this.box=box
     }
 }

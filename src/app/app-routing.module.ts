@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContainerCardSushiBoxesComponent } from './component/container-card-sushi-boxes/container-card-sushi-boxes.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { RgpdComponent } from './component/rgpd/rgpd.component';
-import { PanierComponent } from './component/panier/panier.component';
+import { PagePanierComponent } from './component/panier/page-panier.component';
 
 const routes: Routes = [
   { path: "", component: ContainerCardSushiBoxesComponent },
   { path: "rgpd", component: RgpdComponent },
-  { path: "panier", component: PanierComponent }
+  { path: "panier", component: PagePanierComponent }
   
 ];
 
