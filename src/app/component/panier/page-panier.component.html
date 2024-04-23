@@ -1,18 +1,4 @@
 <div class="container bg-white rounded-4 p-0">
-    <div class="bg-warning m-0 p-1 rounded-top-4" >
-        <h3><i class="bi bi-basket-fill ms-2"></i>  Votre panier </h3>
-    </div>
-    <div class="p-2">
-    
-
-    <!-- Option sur place ou à emporter : -->
-    <div class="rounded-2 bg-body-secondary p-2 m-2">
-        <h4>Vos options de commandes :</h4>
-        
-      
-        
-    </div>
-
     <!-- Information de synthèse du panier : -->
     <div class="rounded-2 bg-body-secondary p-2 m-2">
     <h4>Bilan de votre panier :</h4>
@@ -31,7 +17,6 @@
             <thead class="table-primary" >
                 <tr class="table-in text-center">
                 <th>NOM DE LA BOX</th>
-                <th>DETAILS</th>
                 <th>QUANTITE</th>
                 <th><i class="bi bi-trash-fill"></i></th>
                 <th>PRIX UNITAIRE</th>
@@ -44,18 +29,16 @@
                 <tr class="table-secondary table-group-divider align-baseline border-black">
                     <td class="w-25">{{ ligne.box.nom }}</td>
                     <td class="text-center">
-                        <!-- Voir image box : -->
-                        <button class="btn btn-outline-dark" data-bs-toggle="modal" [attr.data-bs-target]="'#photo-box-' + ligne.box.id" style="font-size: 0.9em;"><i class="bi bi-eye-fill"></i></button></td>
-                    <td class="text-center">
                         <!-- Bouton - : -->
-                        <button class="btn"><i class="bi bi-dash-circle-fill"></i></button>
-                       {{ligne.qte}}
+                        <button class="btn" (click)="enleverQuantite(ligne)"><i class="bi bi-dash-circle-fill"></i></button>
+                        {{ligne.qte}}
                         <!-- Bouton + : -->
-                        <button class="btn" ><i class="bi bi-plus-circle-fill"></i></button>
+                        <button class="btn" (click)="ajouterQuantite(ligne)"><i class="bi bi-plus-circle-fill"></i></button>
                     </td>
                     <td class="text-center">
                         <!-- Bouton trash : -->
-                        <button class="btn btn-outline-danger"  style="font-size: 0.9em;"><i class="bi bi-trash-fill"></i></button></td>
+                        <button class="btn btn-outline-danger" style="font-size: 0.9em;" (click)="supprimerLigne(ligne)"><i class="bi bi-trash-fill"></i></button>
+                    </td>
                     <td class="text-center">{{ ligne.box.prix }}€</td>
                     <td class="text-center">{{ (ligne.qte * ligne.box.prix).toFixed(2) }}€</td>
                 </tr>
@@ -72,29 +55,26 @@
 </div>
 
     <!-- Validation du panier ou annulation de la commande : -->
-    <div class="bg-warning rounded-bottom-4 p-2">        
-        <h3>Vos actions sur votre panier :</h3>
-        <div class="row m-4">
-            <div *ngIf="panier.length > 0 else panierVide">
-                <div class="col">
-                    <button  class="btn btn-success m-2">VALIDER VOTRE COMMANDE</button>
-                    <button class="btn btn-danger m-2" >VIDER LE PANIER</button>
-                </div>
+<div class="bg-warning rounded-bottom-4 p-2">        
+    <h3>Vos actions sur votre panier :</h3>
+    <div class="row m-4">
+        <div *ngIf="panier.length > 0 else panierVide">
+            <div class="col">
+                <button class="btn btn-success m-2">VALIDER VOTRE COMMANDE</button>
+                <button class="btn btn-danger m-2">VIDER LE PANIER</button>
+            </div>
             <div class="col text-end">
-                <h3><b>Total : €</b></h3>
+                <h3><b>Total : {{ total.toFixed(2) }}€</b></h3> <!-- Affichage du total du panier -->
             </div>
-            </div>
-
-            <ng-template #panierVide>
-                <div class="col-5">
-                    <b>Votre panier est vide, veuillez procéder à votre commande : </b>
-                </div>
-                <div class="col-3">
-                    <a class="btn btn-info" routerLink="/home" routerLinkActive="page">Choisir mes boxes</a>
-                </div>
-                
-            </ng-template>        
         </div>
+
+        <ng-template #panierVide>
+            <div class="col-5">
+                <b>Votre panier est vide, veuillez procéder à votre commande : </b>
+            </div>
+            <div class="col-3">
+                <a class="btn btn-info" routerLink="" routerLinkActive="active">Choisir mes boxes</a>
+            </div>
+        </ng-template>        
     </div>
-  
 </div>
